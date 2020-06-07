@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 const maru, batsu = "○", "✕"
@@ -24,10 +25,35 @@ func (v *ViewData) Execute(w http.ResponseWriter) {
 }
 
 func gameHandle(w http.ResponseWriter, r *http.Request) {
-	turn := maru
-	board := &Board{}
-	v := ViewData{turn, board}
+	_, nextTurn := turnFormValue(r)
+	board := boardFormValue(r)
+
+	v := ViewData{nextTurn, board}
 	v.Execute(w)
+}
+
+func boardFormValue(r *http.Request) *Board {
+	var board Board
+	for row, rows := range board {
+		for col, _ := range rows {
+			name := "c" + strconv.Itoa(row) + strconv.Itoa(col)
+			board[row][col] = r.FormValue(name)
+		}
+	}
+
+	return &board
+}
+
+var nextTurnMap = map[string]string{
+	maru:  batsu,
+	batsu: maru,
+	"":    maru,
+}
+
+func turnFormValue(r *http.Request) (string, string) {
+	turn := r.FormValue("turn")
+	nextTurn := nextTurnMap[turn]
+	return turn, nextTurn
 }
 
 func main() {
