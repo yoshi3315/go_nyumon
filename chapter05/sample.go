@@ -77,6 +77,12 @@ func main() {
 	f64i = imag(c128)
 	fmt.Println("f64r: ", f64r)
 	fmt.Println("f64i: ", f64i)
+
+	s1 := "abc"
+	s2 := "あいうえお"
+	s3 := s1 + s2
+	fmt.Println(s3)
+	fmt.Println(len(s3))
 }
 
 func trueFunc() bool {
