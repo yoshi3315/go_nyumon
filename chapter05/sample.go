@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
 
 var (
 	v1 = 2 + 3
@@ -26,6 +29,31 @@ var (
 	i1  int8 = -0x50
 	v11      = i1 << 4
 	v12      = i1 >> 4
+)
+
+const (
+	intLit       = 123
+	strLit       = "ABC"
+	intConst     = -intLit
+	strConst     = strLit + "DEF"
+	floatConst   = float64(intLit + 456)
+	complexConst = complex(1.1, 2.2)
+	realConst    = real(complexConst)
+	imagConst    = imag(complexConst)
+)
+
+var a = [3]int{1, 2, 3}
+var sss = struct {
+	x int64
+	y float64
+}{}
+
+const (
+	lenConst      = len(a)
+	capConst      = cap(a)
+	alignofConst  = unsafe.Alignof(sss)
+	offsetofConst = unsafe.Offsetof(sss.y)
+	sizeofConst   = unsafe.Sizeof(sss)
 )
 
 func main() {
@@ -114,6 +142,11 @@ func main() {
 
 	var ss3 string = string(runeSlice)
 	fmt.Println(ss3)
+
+	fmt.Println(intConst, strConst, floatConst)
+	fmt.Println(complexConst, realConst, complexConst)
+	fmt.Println(lenConst, capConst)
+	fmt.Println(alignofConst, offsetofConst, sizeofConst)
 }
 
 func trueFunc() bool {
