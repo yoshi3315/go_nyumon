@@ -83,6 +83,37 @@ func main() {
 	s3 := s1 + s2
 	fmt.Println(s3)
 	fmt.Println(len(s3))
+
+	var (
+		u8        uint8
+		u16       uint16
+		f64       float64
+		r                = 'あ'
+		str       string = "abcあいうえお"
+		byteSlice []byte
+		runeSlice []rune
+	)
+
+	u8 = uint8(u16)
+	u16 = uint16(u8)
+
+	f64 = float64(u16)
+	u16 = uint16(f64)
+
+	var ss1 string = string(r)
+	fmt.Println(ss1)
+
+	byteSlice = []byte(str)
+	fmt.Println(byteSlice)
+
+	runeSlice = []rune(str)
+	fmt.Println(runeSlice)
+
+	var ss2 string = string(byteSlice)
+	fmt.Println(ss2)
+
+	var ss3 string = string(runeSlice)
+	fmt.Println(ss3)
 }
 
 func trueFunc() bool {
