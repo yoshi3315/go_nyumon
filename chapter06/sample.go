@@ -103,4 +103,11 @@ OuterLoop:
 	for i, r := range s {
 		fmt.Println(i, r, string(r))
 	}
+
+	goto label
+
+	fmt.Println("実行されない")
+
+label:
+	fmt.Println("goto文によるジャンプ")
 }
